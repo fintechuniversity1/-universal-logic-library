@@ -1,0 +1,3930 @@
+{
+  "library": "Universal Logic Library",
+  "release": "core_logic_v0.3",
+  "version": "0.3.0",
+  "created_date": "2026-01-13",
+  "notes": "v0.3 = v0.2 (35) + Information Theory (10) + Graph Theory (10) + Formal Languages (10). Total: 65 rules.",
+  "rules": [
+    {
+      "id": "LOGIC.PROP.MODUSPONENS.001",
+      "title": "Modus Ponens",
+      "status": "hard",
+      "domain": [
+        "Logic",
+        "Propositional logic"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "P -> Q",
+          "P"
+        ],
+        "conclusion": "Q"
+      },
+      "variables": {
+        "P": {
+          "type": "Bool"
+        },
+        "Q": {
+          "type": "Bool"
+        }
+      },
+      "side_conditions": [],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "ChatGPT (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "If it rains, ground is wet",
+            "It rains"
+          ],
+          "conclusion": "Ground is wet"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": "theorem mp (P Q : Prop) : (P -> Q) -> P -> Q := fun h hp => h hp",
+        "smtlib_sketch": "(=> (and (=> P Q) P) Q)"
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "ChatGPT (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "inference",
+        "modus_ponens"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "MATH.SET.SUBSET_TRANSITIVITY.001",
+      "title": "Subset Transitivity",
+      "status": "hard",
+      "domain": [
+        "Mathematics",
+        "Set theory"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "A ⊆ B",
+          "B ⊆ C"
+        ],
+        "conclusion": "A ⊆ C"
+      },
+      "variables": {
+        "A": {
+          "type": "Set"
+        },
+        "B": {
+          "type": "Set"
+        },
+        "C": {
+          "type": "Set"
+        }
+      },
+      "side_conditions": [
+        "All sets are subsets of the same universe (implicit)."
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "ChatGPT (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "{1} ⊆ {1,2}",
+            "{1,2} ⊆ {1,2,3}"
+          ],
+          "conclusion": "{1} ⊆ {1,2,3}"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": "theorem subset_trans {α} (A B C : Set α) : A ⊆ B -> B ⊆ C -> A ⊆ C := by intro h1 h2; intro x hx; exact h2 (h1 hx)"
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "ChatGPT (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "sets",
+        "transitivity"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "MATH.EQ.SUBSTITUTION.001",
+      "title": "Equality Substitution (Congruence)",
+      "status": "hard",
+      "domain": [
+        "Mathematics",
+        "Equality logic"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "x = y"
+        ],
+        "conclusion": "f(x) = f(y)"
+      },
+      "variables": {
+        "x": {
+          "type": "Any"
+        },
+        "y": {
+          "type": "Any"
+        },
+        "f": {
+          "type": "Function"
+        }
+      },
+      "side_conditions": [
+        "f is defined for both x and y (well-typed / well-defined)."
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "ChatGPT (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "2 = 1 + 1"
+          ],
+          "conclusion": "sin(2) = sin(1+1)"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": "theorem congrArg {α β} (f : α -> β) {x y : α} : x = y -> f x = f y := fun h => by cases h; rfl"
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "ChatGPT (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "equality",
+        "substitution",
+        "congruence"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "LOGIC.PROP.CONTRAPOSITIVE_EQUIV.001",
+      "title": "Contrapositive Equivalence",
+      "status": "hard",
+      "domain": [
+        "Logic",
+        "Propositional logic"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "P -> Q"
+        ],
+        "conclusion": "(¬Q -> ¬P) and (P -> Q) is logically equivalent to (¬Q -> ¬P)"
+      },
+      "variables": {
+        "P": {
+          "type": "Bool"
+        },
+        "Q": {
+          "type": "Bool"
+        }
+      },
+      "side_conditions": [
+        "Equivalence as stated assumes classical logic for the reverse direction in some systems; implication (P->Q) => (¬Q->¬P) holds intuitionistically."
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "ChatGPT (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "If P then Q"
+          ],
+          "conclusion": "If not Q then not P"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": "theorem contra (P Q : Prop) : (P -> Q) -> (Not Q -> Not P) := fun hpq hnq hp => hnq (hpq hp)"
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "ChatGPT (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "contrapositive",
+        "implication"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "MATH.ORDER.GT_TRANSITIVITY.001",
+      "title": "Transitivity of Strict Order (>)",
+      "status": "hard",
+      "domain": [
+        "Mathematics",
+        "Order theory"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "a > b",
+          "b > c"
+        ],
+        "conclusion": "a > c"
+      },
+      "variables": {
+        "a": {
+          "type": "OrderedElement"
+        },
+        "b": {
+          "type": "OrderedElement"
+        },
+        "c": {
+          "type": "OrderedElement"
+        }
+      },
+      "side_conditions": [
+        "'>' is a transitive strict order on the given type."
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "5 > 3",
+            "3 > 1"
+          ],
+          "conclusion": "5 > 1"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": "Use lt_trans on '<' and interpret a > b as b < a (depending on the formalization).",
+        "smtlib_sketch": "(=> (and (> a b) (> b c)) (> a c))"
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "order",
+        "transitivity",
+        "inequality"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "LOGIC.PROP.DEMORGAN_NOT_AND.001",
+      "title": "De Morgan (not-and)",
+      "status": "hard",
+      "domain": [
+        "Logic",
+        "Propositional logic"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [],
+        "conclusion": "¬(P ∧ Q) ↔ (¬P ∨ ¬Q)"
+      },
+      "variables": {
+        "P": {
+          "type": "Bool"
+        },
+        "Q": {
+          "type": "Bool"
+        }
+      },
+      "side_conditions": [
+        "As a biconditional, this equivalence is classical; intuitionistically only (¬P ∨ ¬Q) → ¬(P ∧ Q) is generally provable."
+      ],
+      "conflict_with": [
+        {
+          "rule_id": "LOGIC.INTUITIONISTIC.REGIME.001",
+          "condition": "when reasoning is intuitionistic",
+          "superseded_by": "LOGIC.PROP.DEMORGAN_NOT_AND_WEAK.001"
+        }
+      ],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [],
+          "conclusion": "¬(P ∧ Q) ↔ (¬P ∨ ¬Q)"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": "Classical by by_cases on P; by_cases on Q; simp",
+        "smtlib_sketch": "(= (not (and P Q)) (or (not P) (not Q)))"
+      },
+      "provenance": {
+        "source": "standard (classical)",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "demorgan",
+        "classical_logic"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "LOGIC.PROP.DISTRIBUTION_AND_OVER_OR.001",
+      "title": "Distribution: AND over OR",
+      "status": "hard",
+      "domain": [
+        "Logic",
+        "Propositional logic"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [],
+        "conclusion": "P ∧ (Q ∨ R) ↔ (P ∧ Q) ∨ (P ∧ R)"
+      },
+      "variables": {
+        "P": {
+          "type": "Bool"
+        },
+        "Q": {
+          "type": "Bool"
+        },
+        "R": {
+          "type": "Bool"
+        }
+      },
+      "side_conditions": [],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [],
+          "conclusion": "P ∧ (Q ∨ R) ↔ (P ∧ Q) ∨ (P ∧ R)"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": "by constructor <;> intro h; cases h with | intro hp hqr => cases hqr with | inl hq => exact Or.inl ⟨hp,hq⟩ | inr hr => exact Or.inr ⟨hp,hr⟩; ...",
+        "smtlib_sketch": "(= (and P (or Q R)) (or (and P Q) (and P R)))"
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "distribution"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "LOGIC.PROP.DOUBLE_NEGATION_ELIM.001",
+      "title": "Double Negation Elimination",
+      "status": "hard",
+      "domain": [
+        "Logic",
+        "Propositional logic"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [],
+        "conclusion": "¬¬P ↔ P"
+      },
+      "variables": {
+        "P": {
+          "type": "Bool"
+        }
+      },
+      "side_conditions": [
+        "This biconditional is classical. Intuitionistically, P → ¬¬P holds, but ¬¬P → P is not generally derivable."
+      ],
+      "conflict_with": [
+        {
+          "rule_id": "LOGIC.INTUITIONISTIC.REGIME.001",
+          "condition": "when reasoning is intuitionistic",
+          "superseded_by": "LOGIC.PROP.DOUBLE_NEGATION_INTRO.001"
+        }
+      ],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [],
+          "conclusion": "¬¬P ↔ P (classical)"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": "open Classical; theorem dne (P : Prop) : (¬¬P) -> P := by classical exact Classical.byContradiction",
+        "smtlib_sketch": "(= (not (not P)) P)"
+      },
+      "provenance": {
+        "source": "standard (classical)",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "double_negation",
+        "classical_logic"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "MATH.INEQ.ADD_BOTH_SIDES_GT.001",
+      "title": "Additive Monotonicity of >",
+      "status": "hard",
+      "domain": [
+        "Mathematics",
+        "Inequalities"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "a > b"
+        ],
+        "conclusion": "a + c > b + c"
+      },
+      "variables": {
+        "a": {
+          "type": "OrderedAdditive"
+        },
+        "b": {
+          "type": "OrderedAdditive"
+        },
+        "c": {
+          "type": "OrderedAdditive"
+        }
+      },
+      "side_conditions": [
+        "The type supports addition and a strict order compatible with addition (ordered additive group / ordered ring)."
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "5 > 3"
+          ],
+          "conclusion": "5 + 10 > 3 + 10"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": "theorem add_lt_add_right (h : a > b) : a + c > b + c := by simpa using add_lt_add_right h c",
+        "smtlib_sketch": "(=> (> a b) (> (+ a c) (+ b c)))"
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "inequality",
+        "monotonicity"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "MATH.INEQ.MUL_POS_GT.001",
+      "title": "Multiply by Positive Preserves >",
+      "status": "hard",
+      "domain": [
+        "Mathematics",
+        "Inequalities"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "a > b",
+          "c > 0"
+        ],
+        "conclusion": "a*c > b*c"
+      },
+      "variables": {
+        "a": {
+          "type": "OrderedRing"
+        },
+        "b": {
+          "type": "OrderedRing"
+        },
+        "c": {
+          "type": "OrderedRing"
+        }
+      },
+      "side_conditions": [
+        "Strict order and multiplication are compatible (ordered ring/field).",
+        "c is strictly positive."
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "5 > 3",
+            "2 > 0"
+          ],
+          "conclusion": "5*2 > 3*2"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": "theorem mul_lt_mul_of_pos_right (h : a > b) (hc : c > 0) : a*c > b*c := by exact mul_lt_mul_of_pos_right h hc",
+        "smtlib_sketch": "(=> (and (> a b) (> c 0)) (> (* a c) (* b c)))"
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "inequality",
+        "multiplication",
+        "positive"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "MATH.INEQ.MUL_NEG_FLIPS_GT.001",
+      "title": "Multiply by Negative Reverses >",
+      "status": "hard",
+      "domain": [
+        "Mathematics",
+        "Inequalities"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "a > b",
+          "c < 0"
+        ],
+        "conclusion": "a*c < b*c"
+      },
+      "variables": {
+        "a": {
+          "type": "OrderedRing"
+        },
+        "b": {
+          "type": "OrderedRing"
+        },
+        "c": {
+          "type": "OrderedRing"
+        }
+      },
+      "side_conditions": [
+        "Strict order and multiplication are compatible (ordered ring/field).",
+        "c is strictly negative."
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "5 > 3",
+            "-2 < 0"
+          ],
+          "conclusion": "5*(-2) < 3*(-2)"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": "theorem mul_lt_mul_of_neg_right (h : a > b) (hc : c < 0) : a*c < b*c := by exact mul_lt_mul_of_neg_right h hc",
+        "smtlib_sketch": "(=> (and (> a b) (< c 0)) (< (* a c) (* b c)))"
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "inequality",
+        "multiplication",
+        "negative"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "MATH.INEQ.CHAIN_GT_GE_TO_GT.001",
+      "title": "Chain: > with ≥",
+      "status": "hard",
+      "domain": [
+        "Mathematics",
+        "Order theory"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "a > b",
+          "b ≥ c"
+        ],
+        "conclusion": "a > c"
+      },
+      "variables": {
+        "a": {
+          "type": "PreorderElement"
+        },
+        "b": {
+          "type": "PreorderElement"
+        },
+        "c": {
+          "type": "PreorderElement"
+        }
+      },
+      "side_conditions": [
+        "The structure provides compatible strict and non-strict orders (>, ≥) where > is transitive with ≥ (typical in linear/partial orders)."
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "5 > 3",
+            "3 ≥ 3"
+          ],
+          "conclusion": "5 > 3"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": "Use lt_of_lt_of_le: a < b -> b ≤ c -> a < c (with direction conventions).",
+        "smtlib_sketch": "(=> (and (> a b) (>= b c)) (> a c))"
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "order",
+        "chain_rule"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "MATH.SET.INTERSECTION_COMMUTATIVE.001",
+      "title": "Intersection Commutativity",
+      "status": "hard",
+      "domain": [
+        "Mathematics",
+        "Set theory"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [],
+        "conclusion": "A ∩ B = B ∩ A"
+      },
+      "variables": {
+        "A": {
+          "type": "Set"
+        },
+        "B": {
+          "type": "Set"
+        }
+      },
+      "side_conditions": [
+        "A and B are subsets of the same universe (implicit)."
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [],
+          "conclusion": "{1,2} ∩ {2,3} = {2}"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": "by ext x; simp [and_left_comm, and_comm]",
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "sets",
+        "commutativity",
+        "intersection"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "MATH.SET.UNION_COMMUTATIVE.001",
+      "title": "Union Commutativity",
+      "status": "hard",
+      "domain": [
+        "Mathematics",
+        "Set theory"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [],
+        "conclusion": "A ∪ B = B ∪ A"
+      },
+      "variables": {
+        "A": {
+          "type": "Set"
+        },
+        "B": {
+          "type": "Set"
+        }
+      },
+      "side_conditions": [
+        "A and B are subsets of the same universe (implicit)."
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [],
+          "conclusion": "{1,2} ∪ {2,3} = {1,2,3}"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": "by ext x; simp [or_left_comm, or_comm]",
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "sets",
+        "commutativity",
+        "union"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "MATH.SET.DEMORGAN_UNION_COMPLEMENT.001",
+      "title": "De Morgan (Sets): Complement of Union",
+      "status": "hard",
+      "domain": [
+        "Mathematics",
+        "Set theory"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [],
+        "conclusion": "(A ∪ B)ᶜ = Aᶜ ∩ Bᶜ"
+      },
+      "variables": {
+        "A": {
+          "type": "Set"
+        },
+        "B": {
+          "type": "Set"
+        }
+      },
+      "side_conditions": [
+        "Complement is taken with respect to a fixed universe U."
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [],
+          "conclusion": "Elements not in (A ∪ B) are exactly those not in A and not in B."
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": "by ext x; simp [Set.compl_union]",
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "sets",
+        "demorgan",
+        "complement"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "MATH.NT.EVEN_PLUS_EVEN_EVEN.001",
+      "title": "Even + Even = Even",
+      "status": "hard",
+      "domain": [
+        "Mathematics",
+        "Number theory"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "Even(a)",
+          "Even(b)"
+        ],
+        "conclusion": "Even(a + b)"
+      },
+      "variables": {
+        "a": {
+          "type": "Int"
+        },
+        "b": {
+          "type": "Int"
+        }
+      },
+      "side_conditions": [
+        "Even is defined over integers: Even(x) ⇔ ∃k, x = 2k."
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "Even(4)",
+            "Even(10)"
+          ],
+          "conclusion": "Even(14)"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": "intro ha hb; rcases ha with ⟨k,rfl⟩; rcases hb with ⟨l,rfl⟩; refine ⟨k+l, by ring⟩",
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "parity",
+        "even"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "MATH.NT.EVEN_MUL_ANY_EVEN.001",
+      "title": "Even × Any = Even",
+      "status": "hard",
+      "domain": [
+        "Mathematics",
+        "Number theory"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "Even(a)"
+        ],
+        "conclusion": "Even(a * b)"
+      },
+      "variables": {
+        "a": {
+          "type": "Int"
+        },
+        "b": {
+          "type": "Int"
+        }
+      },
+      "side_conditions": [
+        "Even is defined over integers: Even(x) ⇔ ∃k, x = 2k."
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "Even(6)"
+          ],
+          "conclusion": "Even(6 * 7)"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": "intro ha; rcases ha with ⟨k,rfl⟩; refine ⟨k*b, by ring⟩",
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "parity",
+        "even",
+        "multiplication"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "MATH.NT.ODD_MUL_ODD_ODD.001",
+      "title": "Odd × Odd = Odd",
+      "status": "hard",
+      "domain": [
+        "Mathematics",
+        "Number theory"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "Odd(a)",
+          "Odd(b)"
+        ],
+        "conclusion": "Odd(a * b)"
+      },
+      "variables": {
+        "a": {
+          "type": "Int"
+        },
+        "b": {
+          "type": "Int"
+        }
+      },
+      "side_conditions": [
+        "Odd is defined over integers: Odd(x) ⇔ ∃k, x = 2k + 1."
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "Odd(3)",
+            "Odd(5)"
+          ],
+          "conclusion": "Odd(15)"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": "intro ha hb; rcases ha with ⟨k,rfl⟩; rcases hb with ⟨l,rfl⟩; refine ⟨2*k*l + k + l, by ring⟩",
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "parity",
+        "odd"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "GEOM.EUCLID.TRIANGLE_INEQUALITY.001",
+      "title": "Triangle Inequality (Euclidean triangle)",
+      "status": "hard",
+      "domain": [
+        "Geometry",
+        "Euclidean geometry"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "a, b, c are side lengths of a triangle"
+        ],
+        "conclusion": "a + b > c (and cyclic permutations)"
+      },
+      "variables": {
+        "a": {
+          "type": "Real"
+        },
+        "b": {
+          "type": "Real"
+        },
+        "c": {
+          "type": "Real"
+        }
+      },
+      "side_conditions": [
+        "a, b, c are positive real numbers representing side lengths in Euclidean geometry.",
+        "Triangle inequality holds more generally in metric spaces; here stated for Euclidean triangles."
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "a=3,b=4,c=5"
+          ],
+          "conclusion": "3+4>5"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": "Use dist_triangle or triangle inequality in metric spaces if modeling points; for side lengths assume positivity and metric derivation.",
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "geometry",
+        "triangle_inequality"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "GEOM.EUCLID.TRIANGLE_ANGLE_SUM_180.001",
+      "title": "Triangle Angle Sum = 180° (Euclidean plane)",
+      "status": "hard",
+      "domain": [
+        "Geometry",
+        "Euclidean geometry"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "α, β, γ are interior angles of a Euclidean triangle"
+        ],
+        "conclusion": "α + β + γ = 180°"
+      },
+      "variables": {
+        "α": {
+          "type": "Angle"
+        },
+        "β": {
+          "type": "Angle"
+        },
+        "γ": {
+          "type": "Angle"
+        }
+      },
+      "side_conditions": [
+        "Assumes Euclidean plane geometry (parallel postulate).",
+        "Not valid in spherical or hyperbolic geometries."
+      ],
+      "conflict_with": [
+        {
+          "rule_id": "GEOM.SPHERICAL.TRIANGLE_ANGLE_SUM.001",
+          "condition": "on a sphere",
+          "superseded_by": "GEOM.NON_EUCLID.ANGLE_SUM_BY_CURVATURE.001"
+        },
+        {
+          "rule_id": "GEOM.HYPERBOLIC.TRIANGLE_ANGLE_SUM.001",
+          "condition": "in hyperbolic geometry",
+          "superseded_by": "GEOM.NON_EUCLID.ANGLE_SUM_BY_CURVATURE.001"
+        }
+      ],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "α=60°,β=60°,γ=60°"
+          ],
+          "conclusion": "α+β+γ=180°"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": "Euclidean geometry library dependent; state as an axiom/theorem in Euclidean plane context.",
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard (Euclidean)",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "geometry",
+        "euclidean",
+        "angle_sum"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "MATH.ALGEBRA.DISTRIBUTIVITY_MUL_OVER_ADD.001",
+      "title": "Distributivity: Multiplication over Addition",
+      "status": "hard",
+      "domain": [
+        "Mathematics",
+        "Algebra"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [],
+        "conclusion": "a * (b + c) = (a * b) + (a * c)"
+      },
+      "variables": {
+        "a": {
+          "type": "Ring"
+        },
+        "b": {
+          "type": "Ring"
+        },
+        "c": {
+          "type": "Ring"
+        }
+      },
+      "side_conditions": [
+        "Applies in any ring structure (integers, reals, complex, etc.)"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [],
+          "conclusion": "2 * (3 + 4) = (2 * 3) + (2 * 4) = 14"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": "theorem mul_add (a b c : R) : a * (b + c) = a * b + a * c := by ring",
+        "smtlib_sketch": "(= (* a (+ b c)) (+ (* a b) (* a c)))"
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "algebra",
+        "distributivity",
+        "ring"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "MATH.ALGEBRA.ASSOCIATIVITY_ADD.001",
+      "title": "Associativity of Addition",
+      "status": "hard",
+      "domain": [
+        "Mathematics",
+        "Algebra"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [],
+        "conclusion": "(a + b) + c = a + (b + c)"
+      },
+      "variables": {
+        "a": {
+          "type": "AdditiveSemigroup"
+        },
+        "b": {
+          "type": "AdditiveSemigroup"
+        },
+        "c": {
+          "type": "AdditiveSemigroup"
+        }
+      },
+      "side_conditions": [
+        "Holds in any additive semigroup or group"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [],
+          "conclusion": "(1 + 2) + 3 = 1 + (2 + 3) = 6"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": "theorem add_assoc (a b c : G) : (a + b) + c = a + (b + c) := by exact add_assoc a b c",
+        "smtlib_sketch": "(= (+ (+ a b) c) (+ a (+ b c)))"
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "algebra",
+        "associativity",
+        "addition"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "MATH.PROB.BAYES_THEOREM.001",
+      "title": "Bayes' Theorem",
+      "status": "hard",
+      "domain": [
+        "Mathematics",
+        "Probability"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "P(B) > 0"
+        ],
+        "conclusion": "P(A|B) = P(B|A) * P(A) / P(B)"
+      },
+      "variables": {
+        "A": {
+          "type": "Event"
+        },
+        "B": {
+          "type": "Event"
+        }
+      },
+      "side_conditions": [
+        "P(B) must be non-zero to avoid division by zero",
+        "Assumes standard probability axioms (Kolmogorov)"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "P(Disease)=0.01",
+            "P(Test+|Disease)=0.99",
+            "P(Test+)=0.1"
+          ],
+          "conclusion": "P(Disease|Test+) = 0.099"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": "theorem bayes (A B : Event) (hB : P B ≠ 0) : P(A|B) = P(B|A) * P(A) / P(B)",
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "probability",
+        "bayes",
+        "conditional"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "MATH.PROB.PROBABILITY_RANGE.001",
+      "title": "Probability Range Axiom",
+      "status": "hard",
+      "domain": [
+        "Mathematics",
+        "Probability"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [],
+        "conclusion": "0 ≤ P(A) ≤ 1"
+      },
+      "variables": {
+        "A": {
+          "type": "Event"
+        }
+      },
+      "side_conditions": [
+        "Kolmogorov probability axiom"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [],
+          "conclusion": "P(coin flip = heads) = 0.5, which is in [0,1]"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": "axiom prob_range (A : Event) : 0 ≤ P A ∧ P A ≤ 1",
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard (Kolmogorov axioms)",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "probability",
+        "axiom",
+        "range"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "MATH.CALCULUS.DERIVATIVE_SUM_RULE.001",
+      "title": "Derivative: Sum Rule",
+      "status": "hard",
+      "domain": [
+        "Mathematics",
+        "Calculus"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "f and g are differentiable at x"
+        ],
+        "conclusion": "d/dx [f(x) + g(x)] = f'(x) + g'(x)"
+      },
+      "variables": {
+        "f": {
+          "type": "DifferentiableFunction"
+        },
+        "g": {
+          "type": "DifferentiableFunction"
+        },
+        "x": {
+          "type": "Real"
+        }
+      },
+      "side_conditions": [
+        "Both functions must be differentiable at the point"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "f(x)=x²",
+            "g(x)=x³"
+          ],
+          "conclusion": "d/dx[x²+x³] = 2x + 3x²"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": "theorem deriv_add (f g : ℝ → ℝ) (x : ℝ) : deriv (f + g) x = deriv f x + deriv g x",
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "calculus",
+        "derivative",
+        "sum_rule"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "MATH.CALCULUS.CHAIN_RULE.001",
+      "title": "Chain Rule",
+      "status": "hard",
+      "domain": [
+        "Mathematics",
+        "Calculus"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "f is differentiable at g(x)",
+          "g is differentiable at x"
+        ],
+        "conclusion": "d/dx [f(g(x))] = f'(g(x)) * g'(x)"
+      },
+      "variables": {
+        "f": {
+          "type": "DifferentiableFunction"
+        },
+        "g": {
+          "type": "DifferentiableFunction"
+        },
+        "x": {
+          "type": "Real"
+        }
+      },
+      "side_conditions": [
+        "Composition must be well-defined and differentiable"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "f(u)=sin(u)",
+            "g(x)=x²"
+          ],
+          "conclusion": "d/dx[sin(x²)] = cos(x²) * 2x"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": "theorem deriv.comp (f g : ℝ → ℝ) (x : ℝ) : deriv (f ∘ g) x = deriv f (g x) * deriv g x",
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "calculus",
+        "derivative",
+        "chain_rule"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "MATH.LINEAR.MATRIX_MUL_ASSOCIATIVE.001",
+      "title": "Matrix Multiplication Associativity",
+      "status": "hard",
+      "domain": [
+        "Mathematics",
+        "Linear Algebra"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "Matrices A, B, C have compatible dimensions"
+        ],
+        "conclusion": "(AB)C = A(BC)"
+      },
+      "variables": {
+        "A": {
+          "type": "Matrix"
+        },
+        "B": {
+          "type": "Matrix"
+        },
+        "C": {
+          "type": "Matrix"
+        }
+      },
+      "side_conditions": [
+        "Dimension compatibility: if A is m×n, B is n×p, C is p×q"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [],
+          "conclusion": "Matrix multiplication is associative"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": "theorem Matrix.mul_assoc (A B C : Matrix m n α) : (A * B) * C = A * (B * C)",
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "linear_algebra",
+        "matrix",
+        "associativity"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "MATH.LINEAR.MATRIX_MUL_NOT_COMMUTATIVE.001",
+      "title": "Matrix Multiplication Non-Commutativity",
+      "status": "soft",
+      "domain": [
+        "Mathematics",
+        "Linear Algebra"
+      ],
+      "weight": 0.85,
+      "schema": {
+        "premises": [
+          "A and B are square matrices"
+        ],
+        "conclusion": "AB ≠ BA (in general)"
+      },
+      "variables": {
+        "A": {
+          "type": "SquareMatrix"
+        },
+        "B": {
+          "type": "SquareMatrix"
+        }
+      },
+      "side_conditions": [
+        "There exist cases where AB = BA (e.g., diagonal matrices, identity matrix)",
+        "This is a 'general rule' - not universally true but true for 'most' matrix pairs"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [],
+          "conclusion": "[[1,2],[3,4]] * [[0,1],[1,0]] ≠ [[0,1],[1,0]] * [[1,2],[3,4]]"
+        }
+      ],
+      "counterexamples": [
+        {
+          "premises": [
+            "A = I (identity)",
+            "B = any matrix"
+          ],
+          "conclusion": "AB = BA"
+        }
+      ],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "linear_algebra",
+        "matrix",
+        "non_commutative"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "PHYS.CLASSICAL.ENERGY_CONSERVATION.001",
+      "title": "Conservation of Energy (Classical Mechanics)",
+      "status": "context-dependent",
+      "domain": [
+        "Physics",
+        "Classical Mechanics"
+      ],
+      "weight": {
+        "isolated_system": 0.99,
+        "non_isolated_system": 0.3,
+        "quantum_scale": 0.5
+      },
+      "schema": {
+        "premises": [
+          "Closed/isolated system"
+        ],
+        "conclusion": "Total energy E = constant over time"
+      },
+      "variables": {
+        "E": {
+          "type": "Energy"
+        }
+      },
+      "side_conditions": [
+        "System must be isolated (no external work or heat transfer)",
+        "Classical mechanics regime",
+        "In quantum mechanics: energy-time uncertainty principle applies"
+      ],
+      "conflict_with": [
+        {
+          "rule_id": "PHYS.QUANTUM.ENERGY_TIME_UNCERTAINTY.001",
+          "condition": "at quantum scales with short time intervals",
+          "superseded_by": null
+        }
+      ],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "Pendulum in vacuum"
+          ],
+          "conclusion": "Kinetic + Potential energy = constant"
+        }
+      ],
+      "counterexamples": [
+        {
+          "premises": [
+            "Pendulum with friction"
+          ],
+          "conclusion": "Energy dissipates as heat"
+        }
+      ],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard (classical physics)",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "physics",
+        "energy",
+        "conservation",
+        "context-dependent"
+      ],
+      "applicability": {
+        "isolated_system": {
+          "external_forces": "none",
+          "heat_transfer": "none"
+        },
+        "quantum_scale": {
+          "time_scale": "~ ħ/ΔE or shorter"
+        }
+      }
+    },
+    {
+      "id": "PHYS.CLASSICAL.MOMENTUM_CONSERVATION.001",
+      "title": "Conservation of Momentum (Classical)",
+      "status": "hard",
+      "domain": [
+        "Physics",
+        "Classical Mechanics"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "No external forces"
+        ],
+        "conclusion": "Total momentum p = constant"
+      },
+      "variables": {
+        "p": {
+          "type": "Momentum"
+        }
+      },
+      "side_conditions": [
+        "System must have no net external force"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "Two colliding billiard balls"
+          ],
+          "conclusion": "p_before = p_after"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "physics",
+        "momentum",
+        "conservation"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "COMP.COMPLEXITY.P_IN_NP.001",
+      "title": "P ⊆ NP",
+      "status": "hard",
+      "domain": [
+        "Computer Science",
+        "Complexity Theory"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [],
+        "conclusion": "Every problem in P is also in NP"
+      },
+      "variables": {},
+      "side_conditions": [
+        "By definition: if solvable in poly-time, verifiable in poly-time"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [],
+          "conclusion": "Sorting is in P, therefore in NP"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "complexity",
+        "P",
+        "NP"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "COMP.ALGO.BINARY_SEARCH_COMPLEXITY.001",
+      "title": "Binary Search Time Complexity",
+      "status": "hard",
+      "domain": [
+        "Computer Science",
+        "Algorithms"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "Sorted array of n elements"
+        ],
+        "conclusion": "Binary search runs in O(log n) time"
+      },
+      "variables": {
+        "n": {
+          "type": "PositiveInteger"
+        }
+      },
+      "side_conditions": [
+        "Array must be sorted",
+        "Random access to elements"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "Array size = 1000"
+          ],
+          "conclusion": "Max ~10 comparisons needed"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "algorithms",
+        "complexity",
+        "binary_search"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "LOGIC.MODAL.K_AXIOM.001",
+      "title": "K Axiom (Modal Logic)",
+      "status": "hard",
+      "domain": [
+        "Logic",
+        "Modal Logic"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [],
+        "conclusion": "□(P → Q) → (□P → □Q)"
+      },
+      "variables": {
+        "P": {
+          "type": "Proposition"
+        },
+        "Q": {
+          "type": "Proposition"
+        }
+      },
+      "side_conditions": [
+        "Fundamental axiom in all normal modal logics"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [],
+          "conclusion": "If necessarily (P implies Q), and necessarily P, then necessarily Q"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard (modal logic)",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "modal_logic",
+        "K_axiom",
+        "necessity"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "LOGIC.TEMPORAL.ALWAYS_IMPLIES_NOW.001",
+      "title": "Temporal Logic: Always Implies Now",
+      "status": "hard",
+      "domain": [
+        "Logic",
+        "Temporal Logic"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "□P (P holds at all times)"
+        ],
+        "conclusion": "P (P holds now)"
+      },
+      "variables": {
+        "P": {
+          "type": "TemporalProposition"
+        }
+      },
+      "side_conditions": [
+        "Linear time semantics"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "Always: traffic light is functional"
+          ],
+          "conclusion": "Currently: traffic light is functional"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard (LTL)",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "temporal_logic",
+        "LTL",
+        "always"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "CHEM.STOICH.MASS_CONSERVATION.001",
+      "title": "Law of Conservation of Mass (Chemical Reactions)",
+      "status": "hard",
+      "domain": [
+        "Chemistry",
+        "Stoichiometry"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "Chemical reaction in closed system"
+        ],
+        "conclusion": "Total mass of reactants = Total mass of products"
+      },
+      "variables": {},
+      "side_conditions": [
+        "Closed system (no mass enters or leaves)",
+        "Nuclear reactions not considered (E=mc² effects negligible)"
+      ],
+      "conflict_with": [
+        {
+          "rule_id": "PHYS.NUCLEAR.MASS_ENERGY_EQUIV.001",
+          "condition": "in nuclear reactions",
+          "superseded_by": "PHYS.NUCLEAR.MASS_ENERGY_EQUIV.001"
+        }
+      ],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "2H₂ + O₂ → 2H₂O"
+          ],
+          "conclusion": "4g H₂ + 32g O₂ = 36g H₂O"
+        }
+      ],
+      "counterexamples": [
+        {
+          "premises": [
+            "Nuclear fission"
+          ],
+          "conclusion": "Some mass converts to energy"
+        }
+      ],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard (Lavoisier)",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "chemistry",
+        "conservation",
+        "mass",
+        "stoichiometry"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "INFO.ENTROPY.NON_NEGATIVE.001",
+      "title": "Entropy is Non-Negative",
+      "status": "hard",
+      "domain": [
+        "Information Theory",
+        "Entropy"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "X is a discrete random variable"
+        ],
+        "conclusion": "H(X) ≥ 0"
+      },
+      "variables": {
+        "X": {
+          "type": "DiscreteRandomVariable"
+        }
+      },
+      "side_conditions": [
+        "Shannon entropy definition: H(X) = -Σ p(x) log p(x)"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "Fair coin: p(H)=0.5, p(T)=0.5"
+          ],
+          "conclusion": "H = 1 bit ≥ 0"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "Shannon (1948)",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "information_theory",
+        "entropy",
+        "non_negative"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "INFO.ENTROPY.CONDITIONING_REDUCES.001",
+      "title": "Conditioning Reduces Entropy",
+      "status": "hard",
+      "domain": [
+        "Information Theory",
+        "Conditional Entropy"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "X, Y are random variables"
+        ],
+        "conclusion": "H(X|Y) ≤ H(X)"
+      },
+      "variables": {
+        "X": {
+          "type": "RandomVariable"
+        },
+        "Y": {
+          "type": "RandomVariable"
+        }
+      },
+      "side_conditions": [
+        "Equality holds iff X and Y are independent"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "X=coin flip, Y=same coin flip"
+          ],
+          "conclusion": "H(X|Y)=0 < H(X)=1"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "information_theory",
+        "conditional_entropy",
+        "inequality"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "INFO.KL_DIVERGENCE.NON_NEGATIVE.001",
+      "title": "KL Divergence is Non-Negative",
+      "status": "hard",
+      "domain": [
+        "Information Theory",
+        "Divergence"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "P, Q are probability distributions"
+        ],
+        "conclusion": "KL(P||Q) ≥ 0"
+      },
+      "variables": {
+        "P": {
+          "type": "ProbabilityDistribution"
+        },
+        "Q": {
+          "type": "ProbabilityDistribution"
+        }
+      },
+      "side_conditions": [
+        "Equality holds iff P = Q",
+        "Q must have support containing P's support"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "P=uniform, Q=uniform"
+          ],
+          "conclusion": "KL(P||Q) = 0"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "Kullback-Leibler (1951)",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "information_theory",
+        "kl_divergence",
+        "non_negative"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "INFO.MUTUAL_INFO.NON_NEGATIVE.001",
+      "title": "Mutual Information is Non-Negative",
+      "status": "hard",
+      "domain": [
+        "Information Theory",
+        "Mutual Information"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "X, Y are random variables"
+        ],
+        "conclusion": "I(X;Y) ≥ 0"
+      },
+      "variables": {
+        "X": {
+          "type": "RandomVariable"
+        },
+        "Y": {
+          "type": "RandomVariable"
+        }
+      },
+      "side_conditions": [
+        "I(X;Y) = H(X) - H(X|Y)",
+        "Equality holds iff X and Y are independent"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "X, Y independent"
+          ],
+          "conclusion": "I(X;Y) = 0"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "information_theory",
+        "mutual_information",
+        "non_negative"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "INFO.MUTUAL_INFO.SYMMETRIC.001",
+      "title": "Mutual Information is Symmetric",
+      "status": "hard",
+      "domain": [
+        "Information Theory",
+        "Mutual Information"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "X, Y are random variables"
+        ],
+        "conclusion": "I(X;Y) = I(Y;X)"
+      },
+      "variables": {
+        "X": {
+          "type": "RandomVariable"
+        },
+        "Y": {
+          "type": "RandomVariable"
+        }
+      },
+      "side_conditions": [],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "Any X, Y"
+          ],
+          "conclusion": "I(X;Y) = I(Y;X)"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "information_theory",
+        "mutual_information",
+        "symmetry"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "INFO.DATA_PROCESSING.INEQUALITY.001",
+      "title": "Data Processing Inequality",
+      "status": "hard",
+      "domain": [
+        "Information Theory",
+        "Information Processing"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "X → Y → Z forms a Markov chain"
+        ],
+        "conclusion": "I(X;Z) ≤ I(X;Y)"
+      },
+      "variables": {
+        "X": {
+          "type": "RandomVariable"
+        },
+        "Y": {
+          "type": "RandomVariable"
+        },
+        "Z": {
+          "type": "RandomVariable"
+        }
+      },
+      "side_conditions": [
+        "Markov chain: Z is conditionally independent of X given Y"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "Signal → Noisy channel → Receiver"
+          ],
+          "conclusion": "Information can only decrease"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "information_theory",
+        "data_processing",
+        "inequality"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "INFO.ENTROPY.MAX_UNIFORM.001",
+      "title": "Uniform Distribution Maximizes Entropy",
+      "status": "hard",
+      "domain": [
+        "Information Theory",
+        "Entropy"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "X takes n possible values"
+        ],
+        "conclusion": "H(X) ≤ log(n), with equality iff X is uniform"
+      },
+      "variables": {
+        "X": {
+          "type": "DiscreteRandomVariable"
+        },
+        "n": {
+          "type": "PositiveInteger"
+        }
+      },
+      "side_conditions": [
+        "Discrete case with finite support"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "n=2 (coin flip)"
+          ],
+          "conclusion": "H ≤ 1 bit, max when p=0.5"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "information_theory",
+        "entropy",
+        "maximum"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "INFO.CHAIN_RULE.ENTROPY.001",
+      "title": "Chain Rule for Entropy",
+      "status": "hard",
+      "domain": [
+        "Information Theory",
+        "Entropy"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "X, Y are random variables"
+        ],
+        "conclusion": "H(X,Y) = H(X) + H(Y|X)"
+      },
+      "variables": {
+        "X": {
+          "type": "RandomVariable"
+        },
+        "Y": {
+          "type": "RandomVariable"
+        }
+      },
+      "side_conditions": [
+        "Joint entropy decomposes into marginal + conditional"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "Two coin flips"
+          ],
+          "conclusion": "H(both) = H(first) + H(second|first)"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "information_theory",
+        "entropy",
+        "chain_rule"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "INFO.FANO.INEQUALITY.001",
+      "title": "Fano's Inequality",
+      "status": "hard",
+      "domain": [
+        "Information Theory",
+        "Error Probability"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "X is true value",
+          "X̂ is estimate",
+          "Pe = P(X̂ ≠ X)"
+        ],
+        "conclusion": "H(X|X̂) ≤ H(Pe) + Pe·log(|X|-1)"
+      },
+      "variables": {
+        "X": {
+          "type": "RandomVariable"
+        },
+        "X̂": {
+          "type": "Estimate"
+        },
+        "Pe": {
+          "type": "ErrorProbability"
+        }
+      },
+      "side_conditions": [
+        "Lower bounds conditional entropy given error probability"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "Classification with error"
+          ],
+          "conclusion": "Uncertainty bounded by error rate"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "Fano (1961)",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "information_theory",
+        "fano",
+        "inequality",
+        "error"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "INFO.JENSEN.INEQUALITY.001",
+      "title": "Jensen's Inequality for Entropy",
+      "status": "hard",
+      "domain": [
+        "Information Theory",
+        "Inequality"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "f is concave",
+          "X is random variable"
+        ],
+        "conclusion": "E[f(X)] ≤ f(E[X])"
+      },
+      "variables": {
+        "f": {
+          "type": "ConcaveFunction"
+        },
+        "X": {
+          "type": "RandomVariable"
+        }
+      },
+      "side_conditions": [
+        "For convex f, inequality reverses",
+        "Foundation for many info theory proofs"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "f(x)=log(x) (concave)"
+          ],
+          "conclusion": "Used to prove KL ≥ 0"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "Jensen (1906)",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "information_theory",
+        "jensen",
+        "inequality",
+        "concave"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "GRAPH.HANDSHAKE.LEMMA.001",
+      "title": "Handshake Lemma",
+      "status": "hard",
+      "domain": [
+        "Graph Theory",
+        "Degree"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "G is a graph"
+        ],
+        "conclusion": "Σ deg(v) = 2|E|"
+      },
+      "variables": {
+        "G": {
+          "type": "Graph"
+        },
+        "v": {
+          "type": "Vertex"
+        },
+        "E": {
+          "type": "EdgeSet"
+        }
+      },
+      "side_conditions": [
+        "Sum of all vertex degrees equals twice the number of edges"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "Triangle: 3 vertices, 3 edges"
+          ],
+          "conclusion": "3+3+3 = 2×3"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "Euler",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "graph_theory",
+        "degree",
+        "handshake_lemma"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "GRAPH.TREE.EDGES.001",
+      "title": "Tree Edge Count",
+      "status": "hard",
+      "domain": [
+        "Graph Theory",
+        "Trees"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "T is a tree with n vertices"
+        ],
+        "conclusion": "|E| = n - 1"
+      },
+      "variables": {
+        "T": {
+          "type": "Tree"
+        },
+        "n": {
+          "type": "PositiveInteger"
+        },
+        "E": {
+          "type": "EdgeSet"
+        }
+      },
+      "side_conditions": [
+        "A tree is a connected acyclic graph"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "5 vertices"
+          ],
+          "conclusion": "4 edges"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "graph_theory",
+        "tree",
+        "edges"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "GRAPH.EULER.PATH_EXISTENCE.001",
+      "title": "Euler Path Existence Condition",
+      "status": "hard",
+      "domain": [
+        "Graph Theory",
+        "Paths"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "G is a connected graph"
+        ],
+        "conclusion": "Euler path exists iff G has exactly 0 or 2 vertices of odd degree"
+      },
+      "variables": {
+        "G": {
+          "type": "Graph"
+        }
+      },
+      "side_conditions": [
+        "Euler path visits every edge exactly once"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "Königsberg bridges"
+          ],
+          "conclusion": "No Euler path (4 vertices of odd degree)"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "Euler (1736)",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "graph_theory",
+        "euler_path",
+        "degree"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "GRAPH.PLANAR.INEQUALITY.001",
+      "title": "Planar Graph Edge Bound",
+      "status": "hard",
+      "domain": [
+        "Graph Theory",
+        "Planarity"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "G is a simple planar graph",
+          "n ≥ 3 vertices"
+        ],
+        "conclusion": "|E| ≤ 3n - 6"
+      },
+      "variables": {
+        "G": {
+          "type": "PlanarGraph"
+        },
+        "n": {
+          "type": "Integer"
+        },
+        "E": {
+          "type": "EdgeSet"
+        }
+      },
+      "side_conditions": [
+        "Simple graph (no multi-edges or self-loops)"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "K5 has 5 vertices, 10 edges"
+          ],
+          "conclusion": "10 > 3×5-6=9, so K5 is not planar"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "graph_theory",
+        "planar",
+        "inequality"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "GRAPH.BIPARTITE.NO_ODD_CYCLES.001",
+      "title": "Bipartite Graph Characterization",
+      "status": "hard",
+      "domain": [
+        "Graph Theory",
+        "Bipartite"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "G is a graph"
+        ],
+        "conclusion": "G is bipartite iff G has no odd-length cycles"
+      },
+      "variables": {
+        "G": {
+          "type": "Graph"
+        }
+      },
+      "side_conditions": [
+        "Bipartite: vertices can be 2-colored with no adjacent same-color"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "Triangle (3-cycle)"
+          ],
+          "conclusion": "Not bipartite"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "König (1916)",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "graph_theory",
+        "bipartite",
+        "cycles"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "GRAPH.CONNECTED.MIN_EDGES.001",
+      "title": "Minimum Edges for Connectivity",
+      "status": "hard",
+      "domain": [
+        "Graph Theory",
+        "Connectivity"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "G is connected",
+          "n vertices"
+        ],
+        "conclusion": "|E| ≥ n - 1"
+      },
+      "variables": {
+        "G": {
+          "type": "Graph"
+        },
+        "n": {
+          "type": "PositiveInteger"
+        },
+        "E": {
+          "type": "EdgeSet"
+        }
+      },
+      "side_conditions": [
+        "Equality holds iff G is a tree"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "5 vertices connected"
+          ],
+          "conclusion": "At least 4 edges"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "graph_theory",
+        "connectivity",
+        "minimum_edges"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "GRAPH.COMPLETE.EDGE_COUNT.001",
+      "title": "Complete Graph Edge Count",
+      "status": "hard",
+      "domain": [
+        "Graph Theory",
+        "Complete Graphs"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "Kn is complete graph with n vertices"
+        ],
+        "conclusion": "|E| = n(n-1)/2"
+      },
+      "variables": {
+        "n": {
+          "type": "PositiveInteger"
+        },
+        "E": {
+          "type": "EdgeSet"
+        }
+      },
+      "side_conditions": [
+        "Complete graph: every pair of vertices connected"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "K4"
+          ],
+          "conclusion": "4×3/2 = 6 edges"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard (combinatorics)",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "graph_theory",
+        "complete_graph",
+        "combinatorics"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "GRAPH.CYCLE.MIN_EDGES.001",
+      "title": "Cycle Minimum Edge Count",
+      "status": "hard",
+      "domain": [
+        "Graph Theory",
+        "Cycles"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "G contains a cycle"
+        ],
+        "conclusion": "|E| ≥ 3"
+      },
+      "variables": {
+        "G": {
+          "type": "Graph"
+        },
+        "E": {
+          "type": "EdgeSet"
+        }
+      },
+      "side_conditions": [
+        "Simplest cycle is a triangle (3 vertices, 3 edges)"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "Triangle"
+          ],
+          "conclusion": "3 edges"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "graph_theory",
+        "cycle",
+        "minimum"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "GRAPH.CHROMATIC.BOUND.001",
+      "title": "Chromatic Number Upper Bound",
+      "status": "hard",
+      "domain": [
+        "Graph Theory",
+        "Coloring"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "G is a graph",
+          "Δ is maximum degree"
+        ],
+        "conclusion": "χ(G) ≤ Δ + 1"
+      },
+      "variables": {
+        "G": {
+          "type": "Graph"
+        },
+        "Δ": {
+          "type": "Integer"
+        },
+        "χ": {
+          "type": "ChromaticNumber"
+        }
+      },
+      "side_conditions": [
+        "Greedy coloring achieves this bound"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "Complete graph Kn"
+          ],
+          "conclusion": "χ(Kn) = n = Δ + 1"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "graph_theory",
+        "chromatic_number",
+        "coloring"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "GRAPH.KURATOWSKI.THEOREM.001",
+      "title": "Kuratowski's Theorem",
+      "status": "hard",
+      "domain": [
+        "Graph Theory",
+        "Planarity"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "G is a graph"
+        ],
+        "conclusion": "G is planar iff it contains no subdivision of K5 or K3,3"
+      },
+      "variables": {
+        "G": {
+          "type": "Graph"
+        }
+      },
+      "side_conditions": [
+        "K5: complete graph on 5 vertices",
+        "K3,3: complete bipartite graph"
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "Claude (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "K5"
+          ],
+          "conclusion": "Not planar (contains K5)"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "Kuratowski (1930)",
+        "contributor": "Claude (via human relay)",
+        "date": "2026-01-12"
+      },
+      "tags": [
+        "graph_theory",
+        "planarity",
+        "kuratowski"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "FL.REGULAR.CLOSED_UNION.001",
+      "title": "Regular Languages Closed Under Union",
+      "status": "hard",
+      "domain": [
+        "Formal Languages",
+        "Regular Languages"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "L1 is regular",
+          "L2 is regular"
+        ],
+        "conclusion": "L1 ∪ L2 is regular"
+      },
+      "variables": {
+        "L1": {
+          "type": "Language"
+        },
+        "L2": {
+          "type": "Language"
+        }
+      },
+      "side_conditions": [
+        "Regularity can be witnessed by DFAs/NFAs/regex; closure holds under standard definitions."
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "ChatGPT (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "L1=strings ending with 0",
+            "L2=strings ending with 1"
+          ],
+          "conclusion": "L1∪L2 is regular"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard (automata theory)",
+        "contributor": "ChatGPT (via human relay)",
+        "date": "2026-01-13"
+      },
+      "tags": [
+        "formal_languages",
+        "regular",
+        "closure",
+        "union"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "FL.REGULAR.CLOSED_INTERSECTION.001",
+      "title": "Regular Languages Closed Under Intersection",
+      "status": "hard",
+      "domain": [
+        "Formal Languages",
+        "Regular Languages"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "L1 is regular",
+          "L2 is regular"
+        ],
+        "conclusion": "L1 ∩ L2 is regular"
+      },
+      "variables": {
+        "L1": {
+          "type": "Language"
+        },
+        "L2": {
+          "type": "Language"
+        }
+      },
+      "side_conditions": [
+        "Proof via product construction on DFAs."
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "ChatGPT (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "L1=even number of 0s",
+            "L2=even number of 1s"
+          ],
+          "conclusion": "L1∩L2 is regular"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard (automata theory)",
+        "contributor": "ChatGPT (via human relay)",
+        "date": "2026-01-13"
+      },
+      "tags": [
+        "formal_languages",
+        "regular",
+        "closure",
+        "intersection"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "FL.REGULAR.CLOSED_COMPLEMENT.001",
+      "title": "Regular Languages Closed Under Complement",
+      "status": "hard",
+      "domain": [
+        "Formal Languages",
+        "Regular Languages"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "L is regular"
+        ],
+        "conclusion": "¬L (complement of L w.r.t. Σ*) is regular"
+      },
+      "variables": {
+        "L": {
+          "type": "Language"
+        },
+        "Σ": {
+          "type": "Alphabet"
+        }
+      },
+      "side_conditions": [
+        "Complement is with respect to Σ*. Requires a complete DFA (total transition function)."
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "ChatGPT (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "L=even-length strings over {0,1}"
+          ],
+          "conclusion": "Complement is odd-length strings, regular"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard (automata theory)",
+        "contributor": "ChatGPT (via human relay)",
+        "date": "2026-01-13"
+      },
+      "tags": [
+        "formal_languages",
+        "regular",
+        "closure",
+        "complement"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "FL.REGULAR.CLOSED_DIFFERENCE.001",
+      "title": "Regular Languages Closed Under Difference",
+      "status": "hard",
+      "domain": [
+        "Formal Languages",
+        "Regular Languages"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "L1 is regular",
+          "L2 is regular"
+        ],
+        "conclusion": "L1 \\ L2 is regular"
+      },
+      "variables": {
+        "L1": {
+          "type": "Language"
+        },
+        "L2": {
+          "type": "Language"
+        }
+      },
+      "side_conditions": [
+        "Difference equals intersection with complement: L1\\L2 = L1 ∩ (¬L2)."
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "ChatGPT (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "L1=Σ*",
+            "L2=strings containing '11'"
+          ],
+          "conclusion": "L1\\L2 is regular"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard (automata theory)",
+        "contributor": "ChatGPT (via human relay)",
+        "date": "2026-01-13"
+      },
+      "tags": [
+        "formal_languages",
+        "regular",
+        "closure",
+        "difference"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "FL.REGULAR.CLOSED_CONCAT.001",
+      "title": "Regular Languages Closed Under Concatenation",
+      "status": "hard",
+      "domain": [
+        "Formal Languages",
+        "Regular Languages"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "L1 is regular",
+          "L2 is regular"
+        ],
+        "conclusion": "L1 · L2 is regular"
+      },
+      "variables": {
+        "L1": {
+          "type": "Language"
+        },
+        "L2": {
+          "type": "Language"
+        }
+      },
+      "side_conditions": [
+        "Concatenation closure shown via ε-NFA construction or regex."
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "ChatGPT (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "L1=0*",
+            "L2=1*"
+          ],
+          "conclusion": "0*1* is regular"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard (automata theory)",
+        "contributor": "ChatGPT (via human relay)",
+        "date": "2026-01-13"
+      },
+      "tags": [
+        "formal_languages",
+        "regular",
+        "closure",
+        "concatenation"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "FL.REGULAR.CLOSED_KLEENE_STAR.001",
+      "title": "Regular Languages Closed Under Kleene Star",
+      "status": "hard",
+      "domain": [
+        "Formal Languages",
+        "Regular Languages"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "L is regular"
+        ],
+        "conclusion": "L* is regular"
+      },
+      "variables": {
+        "L": {
+          "type": "Language"
+        }
+      },
+      "side_conditions": [
+        "Kleene star closure proven via ε-NFA with back-edges or regex."
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "ChatGPT (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "L={ab}"
+          ],
+          "conclusion": "(ab)* is regular"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "Kleene (1956) / standard",
+        "contributor": "ChatGPT (via human relay)",
+        "date": "2026-01-13"
+      },
+      "tags": [
+        "formal_languages",
+        "regular",
+        "closure",
+        "kleene_star"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "FL.REGULAR.CLOSED_REVERSAL.001",
+      "title": "Regular Languages Closed Under Reversal",
+      "status": "hard",
+      "domain": [
+        "Formal Languages",
+        "Regular Languages"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "L is regular"
+        ],
+        "conclusion": "rev(L) is regular"
+      },
+      "variables": {
+        "L": {
+          "type": "Language"
+        }
+      },
+      "side_conditions": [
+        "rev(L) = { reverse(w) | w in L }. Construct by reversing an NFA and swapping start/final states (with ε-moves)."
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "ChatGPT (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "L=0*1"
+          ],
+          "conclusion": "rev(L)=10* is regular"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard (automata theory)",
+        "contributor": "ChatGPT (via human relay)",
+        "date": "2026-01-13"
+      },
+      "tags": [
+        "formal_languages",
+        "regular",
+        "closure",
+        "reversal"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "FL.REGULAR.PUMPING_LEMMA.001",
+      "title": "Pumping Lemma for Regular Languages",
+      "status": "hard",
+      "domain": [
+        "Formal Languages",
+        "Regular Languages"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "L is regular"
+        ],
+        "conclusion": "∃p≥1. ∀s∈L with |s|≥p, ∃x,y,z: s=xyz, |y|≥1, |xy|≤p, and ∀i≥0, x y^i z ∈ L"
+      },
+      "variables": {
+        "L": {
+          "type": "Language"
+        },
+        "p": {
+          "type": "PositiveInteger"
+        },
+        "s": {
+          "type": "String"
+        }
+      },
+      "side_conditions": [
+        "Standard DFA-state pigeonhole argument; lemma is necessary but not sufficient for regularity."
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "ChatGPT (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "Use lemma to show {0^n 1^n} is not regular"
+          ],
+          "conclusion": "Contradiction arises for pumped strings"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard (automata theory)",
+        "contributor": "ChatGPT (via human relay)",
+        "date": "2026-01-13"
+      },
+      "tags": [
+        "formal_languages",
+        "regular",
+        "pumping_lemma"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "FL.CFL.CLOSED_UNION.001",
+      "title": "Context-Free Languages Closed Under Union",
+      "status": "hard",
+      "domain": [
+        "Formal Languages",
+        "Context-Free Languages"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "L1 is context-free",
+          "L2 is context-free"
+        ],
+        "conclusion": "L1 ∪ L2 is context-free"
+      },
+      "variables": {
+        "L1": {
+          "type": "Language"
+        },
+        "L2": {
+          "type": "Language"
+        }
+      },
+      "side_conditions": [
+        "Proof via CFG construction with new start symbol S -> S1 | S2 (after renaming nonterminals)."
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "ChatGPT (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "L1={0^n 1^n}",
+            "L2={0^n 1^{2n}}"
+          ],
+          "conclusion": "Union is context-free"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard (formal language theory)",
+        "contributor": "ChatGPT (via human relay)",
+        "date": "2026-01-13"
+      },
+      "tags": [
+        "formal_languages",
+        "context_free",
+        "closure",
+        "union"
+      ],
+      "applicability": null
+    },
+    {
+      "id": "FL.CFL.INTERSECTION_REGULAR.001",
+      "title": "Context-Free Languages Closed Under Intersection with Regular Languages",
+      "status": "hard",
+      "domain": [
+        "Formal Languages",
+        "Context-Free Languages"
+      ],
+      "weight": 1.0,
+      "schema": {
+        "premises": [
+          "L is context-free",
+          "R is regular"
+        ],
+        "conclusion": "L ∩ R is context-free"
+      },
+      "variables": {
+        "L": {
+          "type": "Language"
+        },
+        "R": {
+          "type": "Language"
+        }
+      },
+      "side_conditions": [
+        "Proof via product of PDA for L and DFA for R."
+      ],
+      "conflict_with": [],
+      "learning_trace": {
+        "discovered_by": "ChatGPT (via human relay)",
+        "validated_by": [],
+        "validation_date": null,
+        "usage_count": null,
+        "success_rate": null
+      },
+      "examples": [
+        {
+          "premises": [
+            "L={0^n 1^n 2^m}",
+            "R=0*1*2*"
+          ],
+          "conclusion": "L∩R is context-free"
+        }
+      ],
+      "counterexamples": [],
+      "formalization": {
+        "lean_sketch": null,
+        "smtlib_sketch": null
+      },
+      "provenance": {
+        "source": "standard (formal language theory)",
+        "contributor": "ChatGPT (via human relay)",
+        "date": "2026-01-13"
+      },
+      "tags": [
+        "formal_languages",
+        "context_free",
+        "closure",
+        "intersection",
+        "regular"
+      ],
+      "applicability": null
+    }
+  ]
+}
